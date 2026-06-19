@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.1.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.duoc</groupId>
 	<artifactId>eureka-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
 		<java.version>25</java.version>
 		<spring-cloud.version>2025.1.2</spring-cloud.version>
@@ -37,13 +23,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -63,6 +43,80 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version>
+				<configuration>
+					<java>
+						<licenseHeader>
+							<content><![CDATA[/*
+								* Copyright © $YEAR DuocUC FullStack 1
+								* Eduardo Bray
+								* Rodrigo Callealta
+								* Fernando Villalobos
+								*/
+								]]></content>
+						</licenseHeader>
+						<palantirJavaFormat>
+							<version>2.90.0</version>
+							<style>PALANTIR</style>
+							<formatJavadoc>true</formatJavadoc>
+						</palantirJavaFormat>
+					</java>
+					<formats>
+						<format>
+							<includes>
+								<include>**/*.properties</include>
+							</includes>
+							<trimTrailingWhitespace />
+							<endWithNewline />
+						</format>
+						<format>
+							<includes>
+								<include>**/*.md</include>
+							</includes>
+							<trimTrailingWhitespace />
+							<endWithNewline />
+						</format>
+						<format>
+							<includes>
+								<include>compose.yml</include>
+							</includes>
+							<indent>
+								<spaces>true</spaces>
+								<spacesPerTab>2</spacesPerTab>
+							</indent>
+							<trimTrailingWhitespace />
+							<endWithNewline />
+						</format>
+						<format>
+							<includes>
+								<include>pom.xml</include>
+								<include>**/*.xml</include>
+							</includes>
+							<excludes>
+								<exclude>**/logback-spring.xml</exclude>
+							</excludes>
+							<eclipseWtp>
+								<type>XML</type>
+							</eclipseWtp>
+							<indent>
+								<tabs>true</tabs>
+								<spacesPerTab>4</spacesPerTab>
+							</indent>
+						</format>
+					</formats>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>apply</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
